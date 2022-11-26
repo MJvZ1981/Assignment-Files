@@ -18,7 +18,7 @@ def clean_cache():
     for file in os.listdir(cache_path):
         file_path = os.path.join(cache_path, file)
         if os.path.isfile(file_path) or os.path.islink(file_path):
-            os.unlink(file_path)
+            os.remove(file)
         elif os.path.isdir(file_path):
             shutil.rmtree(file_path)
 

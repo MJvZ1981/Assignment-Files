@@ -7,7 +7,9 @@ import shutil
 
 # part 1
 path = os.getcwd()
-cache_path = os.path.join(path, "files", "cache")
+cache_path = os.path.join(path, "files", "cache") # de "files" dir moet erbij, omdat ik hem niet kan controleren vanuit de "files" dir
+zip_file_path = path + '\\files\data.zip'
+cache_dir_path = cache_path
 
 def clean_cache():
     if not os.path.exists(cache_path):
@@ -29,7 +31,7 @@ def cache_zip(zip_file_path : str, cache_dir_path : str):
     with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
         zip_ref.extractall(cache_dir_path)
 
-cache_zip(zip_file_path = path + '\\files\\data.zip', cache_dir_path = cache_path)
+cache_zip(zip_file_path, cache_dir_path)
 
 # part 3
 def cached_files():
@@ -46,7 +48,10 @@ def find_password(files : list):
             lines = f.readlines() 
             for line in lines:
                 if line.find('password') >= 0:
-                    return line
+                    words = line.split(" ")
+                    for word in words:
+                        if 'password' not in word:
+                            return word 
 
 password = find_password(files)
 print(password)
